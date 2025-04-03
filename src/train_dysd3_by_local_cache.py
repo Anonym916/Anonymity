@@ -1010,8 +1010,8 @@ def main(args):
                     (weighting.float() * (model_pred.float() - target.float()) ** 2).reshape(target.shape[0], -1),
                     1,
                 )
-                from module.costloss import costloss
-                loss = loss.mean() + costloss(mask)
+                from module.costloss import costloss, costloss_block
+                loss = loss.mean() + costloss_block(mask)
 
                 accelerator.backward(loss)
                 if accelerator.sync_gradients:
